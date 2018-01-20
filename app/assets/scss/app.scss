@@ -10,6 +10,7 @@ $sunshine: #F78733;
 $clean: #DFDCE3;
 
 @import "grid";
+@import "helper";
 
 body {
     margin: 0;
@@ -22,10 +23,6 @@ body {
 @import "nav";
 @import "form";
 @import "flash";
-
-.underline {
-    text-decoration: underline;
-}
 
 .panel {
     background: white;

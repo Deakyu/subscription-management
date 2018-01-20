@@ -64,6 +64,9 @@ body {
   .module--empty {
     background: transparent; }
 
+.underline {
+  text-decoration: underline; }
+
 body {
   margin: 0;
   padding: 0;
@@ -283,9 +286,6 @@ a:visited {
   .flash--error {
     box-shadow: inset 0 0 2px 1px #C62828;
     background: #EF5350; }
-
-.underline {
-  text-decoration: underline; }
 
 .panel {
   background: white;
