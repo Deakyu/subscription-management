@@ -1,0 +1,83 @@
+a,
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 70px;
+    background: $fresh;
+    color: white;
+    box-shadow: 0 2px 2px 2px #ddd;
+    margin-bottom: 22px;
+    &__navbar {
+        width: 100%;
+        height: 70px;
+        margin: 0;
+        padding: 0;
+        @media (min-width: 768px) {
+            padding: 0 96px;
+        }
+    }
+    &__item {
+        height: 70px;
+        display: inline-block;
+        a {
+            display: inline-block;
+            line-height: 62px; // 70px - 4px*2
+            height: 70px;
+            padding: 4px 12px;
+            font-size: 18px;
+            font-family: $headerFont;
+        }
+        &--right {
+            float: right;
+        }
+    }
+    &__menu {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: $fresh;
+        display: none;
+        li.nav__item.nav__item--right {
+            display: block;
+            clear: both;
+            padding: 0 12px;
+            width: 100%;
+            text-align: center;
+            @media (min-width:768px) {
+                display: initial;
+                clear: initial;
+                padding: initial;
+                width: initial;
+            }
+        }
+        @media (min-width:768px) {
+            display: inline;
+            background: transparent;
+            position: initial;
+            top: unset;
+            right: unset;
+        }
+    }
+    &__dropdown-btn {
+        background: transparent;
+        color: white;
+        outline: none;
+        border: none;
+        a>i.fa.fa-bars {
+            font-size: 36px;
+            line-height: 62px;
+        }
+        @media (min-width:768px) {
+            display: none;
+        }
+    }
+    .show-menu {
+        display: block;
+    }
+}

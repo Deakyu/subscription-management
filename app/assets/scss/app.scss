@@ -1,0 +1,129 @@
+// Compile -> sass --watch app/assets/scss/app.scss:public/css/app.css
+
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Nunito+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto+Slab');
+$bodyFont: 'Montserrat', sans-serif;
+$headerFont: 'Roboto Slab', serif;
+$vermillion: #FC4A1A;
+$fresh: #4ABDAC;
+$sunshine: #F78733;
+$clean: #DFDCE3;
+
+@import "grid";
+
+body {
+    margin: 0;
+    padding: 0;
+    color: black;
+    background: #f3f3f3;
+    font-family: $bodyFont;
+}
+
+@import "nav";
+@import "form";
+@import "flash";
+
+.underline {
+    text-decoration: underline;
+}
+
+.panel {
+    background: white;
+    box-shadow: 0 2px 1px 1px #ddd;
+    width: 100%;
+    margin-bottom: 48px;
+    border-radius: 9px;
+    color: white;
+    &__heading {
+        background: $fresh;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+        padding: 9px 18px;
+        font-family: $headerFont;
+        font-weight: bold;
+        .view-all {
+            float: right;
+            font-size: 0.9em;
+            font-weight: lighter;
+            font-family: $bodyFont;
+        }
+    }
+    &__body {
+        border-bottom-left-radius: 9px;
+        border-bottom-right-radius: 9px;
+        padding: 9px;
+        color: black;
+    }
+}
+
+.sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 9px;
+    &__item {
+        border-radius: 9px;
+        background: #f9f9f9;
+        position: relative;
+        &:not(:last-of-type) {margin-bottom: 24px;}
+    }
+    &__logo, &__title {
+        display: inline-block;
+        .pay {
+            position: absolute;
+            top: 12px;
+            right: 9px;
+            background: $sunshine;
+            box-shadow: 0 2px 1px 0 #C55501;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+            padding: 6px 12px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            &--down {
+                transform: translateY(2px);
+                box-shadow: none;
+            }
+            &--unpaid {
+                background: transparent;
+                box-shadow: 0 2px 1px 0 $sunshine,
+                            inset 0 0 0 1px $sunshine;
+                color: $sunshine;
+                &.pay--down {
+                    transform: translateY(2px);
+                    box-shadow: unset,
+                                inset 0 0 0 10px $sunshine;
+                }
+            }
+        }
+    }
+    &__logo {
+        margin: 12px;
+        height: 50px;
+        width: 50px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__title {
+        vertical-align: top;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        width: 50%;
+        word-wrap: break-word;
+        line-height: 20px;
+        &>* {margin: 0;}
+        p {font-size:16px;}
+        h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        h3, p{
+            @media (min-width:768px) {
+                font-size: unset;
+            }
+        }
+    }
+}

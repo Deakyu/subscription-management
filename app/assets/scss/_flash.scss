@@ -1,0 +1,26 @@
+.flash {
+    visibility: hidden;
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 2px;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    transition: all .3s ease-in-out;
+    &.active {
+        visibility: visible;
+        margin: 0 auto 24px;
+        padding: 12px;
+        max-height: 500px;
+    }
+    &--success {
+        box-shadow: inset 0 0 2px 1px #2E7D32;
+        background: #66BB6A;
+    }
+    &--error {
+        box-shadow: inset 0 0 2px 1px #C62828;
+        background: #EF5350;
+    }
+}
