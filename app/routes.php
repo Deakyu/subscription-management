@@ -18,6 +18,10 @@
     // Subscriptions Routes
     $router->get('/subscriptions', 'SubscriptionController@index');
 
+    // Cards Routes
+    $router->get('/cards', 'CardController@index');
+    $router->post('/card/save', 'CardController@save');
+
     // TODO: Fix it to post
     $router->get('/user/logout', 'UserController@logout');
     

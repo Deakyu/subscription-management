@@ -9,6 +9,8 @@
             <?php if(isset($_SESSION['user_id'])): ?>
                 <!-- Logged in users see this -->
                 <li class="nav__item nav__item--right"><a href="<?= URLROOT.'/user/logout'; ?>">LOGOUT</a></li>
+                <li class="nav__item nav__item--right"><a href="<?= URLROOT.'/cards'; ?>">CARDS</a></li>
+                <li class="nav__item nav__item--right"><a href="<?= URLROOT.'/subscriptions'; ?>">SUBSCRIPTIONS</a></li>
             <?php else: ?>
                 <!-- Guests see this -->
                 <li class="nav__item nav__item--right"><a href="<?= URLROOT.'/user/register'; ?>">REGISTER</a></li>

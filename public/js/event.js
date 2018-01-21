@@ -1,4 +1,5 @@
 class Event {
+
     static keepLabelUp(e) {
         if(!e.target.value) {
             e.target.classList.remove("not-empty")
@@ -43,5 +44,49 @@ class Event {
                 el.classList.remove('active')
             });
         }, 5000);
+    }
+
+    static showModal() {
+        const modals = (new UI).modal
+        modals.forEach(modal => modal.style.display="block")
+    }
+
+    static hideModal() {
+        const modals = (new UI).modal
+        modals.forEach(modal => modal.style.display="none")
+    }
+
+    static addCard(http) {
+        let card_name = document.getElementById('card_name').value
+        let company = document.getElementById('company').value
+        let last_digit = document.getElementById('last_digit').value
+        let user_id = document.getElementById('user_id').value
+
+        let data = {
+            card_name: card_name,
+            company: company,
+            last_digit: last_digit,
+            user_id: user_id
+        }
+        http.post('/card/save', data)
+            .then(data => {
+                // TODO: Handle error from php!
+                // Handle Error if exists
+                let card_name_err = document.getElementById('card_name_err')
+                let company_err = document.getElementById('company_err')
+                let last_digit_err = document.getElementById('last_digit_err')
+
+                card_name_err.innerHTML = data.error.card_name
+                company_err.innerHTML = data.error.company
+                last_digit_err.innerHTML = data.error.last_digit
+
+                // If not, card is added to db, so close modal
+                // and give feedback
+                // TODO: Flash message on js side
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
     }
 }

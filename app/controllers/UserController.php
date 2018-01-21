@@ -105,7 +105,7 @@
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_name'] = $user->name;
             flash('login_success', "Welcome, {$_SESSION['user_name']}!");
-            redirect('page/index');
+            redirect('subscriptions');
         }
 
         public function logout() {

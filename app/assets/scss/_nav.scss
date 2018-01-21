@@ -31,10 +31,11 @@ a:visited {
             height: 70px;
             padding: 4px 12px;
             font-size: 18px;
-            font-family: $headerFont;
+            font-family: $bodyFont;
         }
         &--right {
             float: right;
+            a{font-size: 14px;}
         }
     }
     &__menu {
@@ -69,6 +70,7 @@ a:visited {
         color: white;
         outline: none;
         border: none;
+        cursor: pointer;
         a>i.fa.fa-bars {
             font-size: 36px;
             line-height: 62px;
@@ -79,5 +81,7 @@ a:visited {
     }
     .show-menu {
         display: block;
+        z-index:2;
+        opacity: 0.9;
     }
 }

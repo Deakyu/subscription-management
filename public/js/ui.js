@@ -5,5 +5,9 @@ class UI {
         this.payBtns = document.querySelectorAll('.pay')
         this.inputs = document.querySelectorAll('.form__input')
         this.flash = document.querySelectorAll('.flash')
+        this.modal = document.querySelectorAll('.modal-wrapper')
+        this.modalContent = document.querySelectorAll('.modal');
+        this.closeBtn = document.querySelectorAll('.close')
+        this.modalBtn = document.querySelectorAll('[rel=js-modal]')
     }
 }
