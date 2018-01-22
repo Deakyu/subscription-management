@@ -57,36 +57,65 @@ class Event {
     }
 
     static addCard(http) {
-        let card_name = document.getElementById('card_name').value
-        let company = document.getElementById('company').value
-        let last_digit = document.getElementById('last_digit').value
-        let user_id = document.getElementById('user_id').value
+        let card_name = document.getElementById('card_name')
+        let company = document.getElementById('company')
+        let last_digit = document.getElementById('last_digit')
+        let expire = document.getElementById('expire')
+        let user_id = document.getElementById('user_id')
 
         let data = {
-            card_name: card_name,
-            company: company,
-            last_digit: last_digit,
-            user_id: user_id
+            card_name: card_name.value,
+            company: company.value,
+            last_digit: last_digit.value,
+            expire: expire.value,
+            user_id: user_id.value
         }
         http.post('/card/save', data)
-            .then(data => {
-                // TODO: Handle error from php!
-                // Handle Error if exists
-                let card_name_err = document.getElementById('card_name_err')
-                let company_err = document.getElementById('company_err')
-                let last_digit_err = document.getElementById('last_digit_err')
+            .then(res => {
+                console.log(res)
+                if(!res.errorExists) {
+                    // Card is added successfully
+                        // Add the card to DOM
+                        const li = document.createElement('li')
+                        li.className = 'list__item'
+                        li.innerHTML = `
+                        <div class="list__logo">
+                            <img src="${res.data.company}">
+                            </div>
+                            <div class="list__title">
+                            <h3>${res.data.card_name}</h3>
+                                <p><span><em>${res.data.last_digit}</em></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${res.data.expire}</span></p>
+                                <button class="list__top-btn" rel="js-payBtn">Edit</button>
+                        </div>
+                        `
+                        document.querySelector('ul.list').appendChild(li)
+                        // Empty Modal Inputs
+                        card_name.value = ""
+                        company.value = ""
+                        last_digit.value = ""
+                        expire.value = ""
 
-                card_name_err.innerHTML = data.error.card_name
-                company_err.innerHTML = data.error.company
-                last_digit_err.innerHTML = data.error.last_digit
+                        // Close Modal
+                        this.hideModal()
+                        
+                        // Show Flash Message
 
-                // If not, card is added to db, so close modal
-                // and give feedback
-                // TODO: Flash message on js side
+                } else {
+                    // Handle Error if exists
+                    let card_name_err = document.getElementById('card_name_err')
+                    let company_err = document.getElementById('company_err')
+                    let last_digit_err = document.getElementById('last_digit_err')
+                    let expire_err = document.getElementById('expire_err')
+    
+                    card_name_err.innerHTML = res.error.card_name
+                    company_err.innerHTML = res.error.company
+                    last_digit_err.innerHTML = res.error.last_digit
+                    expire_err.innerHTML = res.error.expire
+                }
+
             })
             .catch(err => {
                 console.error(err)
             })
-
     }
 }

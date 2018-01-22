@@ -27,3 +27,21 @@ function view($view, $data = []) {
 function redirect($page) {
     header('Location: ' . URLROOT . '/' . $page);
 }
+
+function getCardImage($type) {
+    $imageUrl = 'images/credit_card_logo.png';
+    switch ($type) {
+        case 'visa':
+            $imageUrl = 'images/visa_logo.png';
+            break;
+        
+        case 'master':
+            $imageUrl = 'images/mastercard_logo.png';
+            break;
+        
+        case 'express':
+            $imageUrl = 'images/american_express_logo.png';
+            break;
+    }
+    return $imageUrl;
+}

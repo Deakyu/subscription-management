@@ -384,6 +384,7 @@ a:visited {
         transform: translateY(2px);
         box-shadow: unset, inset 0 0 0 10px #F78733; }
   .list__add-btn {
+    z-index: 1;
     width: 45px;
     height: 45px;
     position: absolute;

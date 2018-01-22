@@ -12,6 +12,7 @@
                 'card_name' => '',
                 'company' => '',
                 'last_digit' => '',
+                'expire' => '',
             ];
             $this->view('cards/index', $data);
         }
@@ -28,9 +29,22 @@
                     if(!empty($value)) $errorExists = true;
                 }
 
-                $data = ['error' => $error, 'data' => $data];
+                if($errorExists) {
+                    $message = '';
+                } else {
+                    $message = "{$data['card_name']} is added to your card list!";
+                    $data = compact('error', 'data', 'errorExists', 'message');
+                    
+                    if($this->cardModel->save($data['data'])) {
+                        $data['data']['company'] = getCardImage($data['data']['company']);
+                        returnJson($data);
+                    } else {
+                        returnJson($data,503);
+                    }
+                }
 
-                $errorExists ? returnJson($data, 503) : returnJson($data);
+
+                // $errorExists ? returnJson($data, 503) : returnJson($data);
             }
         }
 
