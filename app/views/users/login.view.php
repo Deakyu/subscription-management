@@ -37,4 +37,6 @@
             <div class="module module--empty"></div>
         </div>    
     </div>
-<?php include APPROOT.'/views/inc/footer.php'; ?>
+<?php require APPROOT . '/views/inc/js.php'; ?>
+<!-- Put Custom js -->
+<?php require APPROOT . '/views/inc/footer.php'; ?>

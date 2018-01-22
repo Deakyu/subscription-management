@@ -117,4 +117,6 @@
         </div>
     </div>
 
+<?php require APPROOT . '/views/inc/js.php'; ?>
+<!-- Put Custom js -->
 <?php require APPROOT . '/views/inc/footer.php'; ?>

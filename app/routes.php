@@ -21,6 +21,9 @@
     // Cards Routes
     $router->get('/cards', 'CardController@index');
     $router->post('/card/save', 'CardController@save');
+    $router->get('/card/:id', 'CardController@show');
+    $router->post('/card/update', 'CardController@update');
+    $router->post('/card/delete', 'CardController@delete');
 
     // TODO: Fix it to post
     $router->get('/user/logout', 'UserController@logout');

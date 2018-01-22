@@ -35,29 +35,3 @@ dropdownBtn.addEventListener('click', e => {
 // Mousedown effect for button
 const payBtn = ui.payBtns
 payBtn.forEach(btn => Event.payButtonPressEffect(btn))
-
-// Show modal
-const modalBtn = ui.modalBtn
-modalBtn.forEach(btn => {
-    btn.addEventListener('click', Event.showModal)
-})
-
-// Close modal
-const closeBtn = ui.closeBtn
-closeBtn.forEach(btn => {
-    btn.addEventListener('click', Event.hideModal)
-})
-
-const modal = ui.modalContent
-modal.forEach(el => {
-    el.addEventListener('blur', () => {
-        console.log(el)
-    })
-});
-
-const addCardBtn = document.getElementById('add-card')
-addCardBtn.addEventListener('click', e => {
-    Event.addCard(http)
-
-    e.preventDefault()
-})
