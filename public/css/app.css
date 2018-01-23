@@ -453,4 +453,20 @@ a:visited {
     border-bottom-right-radius: 9px;
     padding: 9px 18px; }
 
+.btn-status {
+  background: transparent;
+  font-size: 16px;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer; }
+  .btn-status--paid {
+    background: #4bb543;
+    color: white; }
+  .btn-status--not-paid {
+    border: 1px solid #FC4A1A;
+    color: #FC4A1A; }
+
 /*# sourceMappingURL=app.css.map */

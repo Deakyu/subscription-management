@@ -30,6 +30,14 @@
             return count($results) > 0 ? true : false;
         }
 
+        public function cards($userId) {
+            $this->db->query("SELECT * FROM cards WHERE user_id = ?");
+            $this->db->bind("i", [$userId]);
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         public function login($email, $password) {
             $storedHidden = $this->hidden;
             $this->hidden = [];

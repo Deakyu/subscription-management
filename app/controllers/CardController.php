@@ -16,17 +16,38 @@
             $this->view('cards/index', $cards);
         }
 
+        // For editing card also
         public function show($id) {
             $card = $this->cardModel->where(['id'], ['='], [$id]);
             returnJson($card);
         }
 
-        public function delete() {
-            $id = requestData()['id'];
-            if($this->cardModel->delete($id)) {
-                returnJson($id);
-            } else {
-                returnJson($id,503);
+        public function save() {
+            $error = [];
+            if($data = requestData()) {
+                // Validate empty inputs
+                foreach($data as $key=>$value) {
+                    $error[$key] = empty($value) ? "$key is required" : '';
+                }
+                $errorExists = false;
+                foreach($error as $err=>$value) {
+                    if(!empty($value)) $errorExists = true;
+                }
+
+                if($errorExists) {
+                    $message = '';
+                    $data = compact('error', 'data', 'errorExists', 'message');
+                    returnJson($data);
+                } else {
+                    $message = "{$data['card_name']} is added to your card list!";
+                    $data = compact('error', 'data', 'errorExists', 'message');
+                    
+                    if($this->cardModel->save($data['data'])) {
+                        returnJson($data);
+                    } else {
+                        returnJson($data,503);
+                    }
+                }
             }
         }
 
@@ -58,35 +79,13 @@
             }
         }
 
-        public function save() {
-            $error = [];
-            if($data = requestData()) {
-                // Validate empty inputs
-                foreach($data as $key=>$value) {
-                    $error[$key] = empty($value) ? "$key is required" : '';
-                }
-                $errorExists = false;
-                foreach($error as $err=>$value) {
-                    if(!empty($value)) $errorExists = true;
-                }
-
-                if($errorExists) {
-                    $message = '';
-                    $data = compact('error', 'data', 'errorExists', 'message');
-                    returnJson($data);
-                } else {
-                    $message = "{$data['card_name']} is added to your card list!";
-                    $data = compact('error', 'data', 'errorExists', 'message');
-                    
-                    if($this->cardModel->save($data['data'])) {
-                        returnJson($data);
-                    } else {
-                        returnJson($data,503);
-                    }
-                }
-
-
-                // $errorExists ? returnJson($data, 503) : returnJson($data);
+        public function delete() {
+            $id = requestData()['id'];
+            // TODO: null card_id on related subscription
+            if($this->cardModel->delete($id)) {
+                returnJson($id);
+            } else {
+                returnJson($id,503);
             }
         }
 

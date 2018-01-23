@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto+Slab');
 $bodyFont: 'Montserrat', sans-serif;
 $headerFont: 'Roboto Slab', serif;
+$successGreen: rgb(75, 181, 67);
 $vermillion: #FC4A1A;
 $fresh: #4ABDAC;
 $sunshine: #F78733;
@@ -193,5 +194,25 @@ body {
         border-bottom-left-radius: 9x;
         border-bottom-right-radius: 9px;
         padding: 9px 18px;
+    }
+}
+
+.btn-status {
+    background: transparent;
+    font-size: 16px;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    &--paid {
+        // border: 1px solid $successGreen;
+        background: $successGreen;
+        color: white;
+    }
+    &--not-paid {
+        border: 1px solid $vermillion;
+        color: $vermillion;
     }
 }
