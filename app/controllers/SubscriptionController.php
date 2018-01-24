@@ -1,5 +1,7 @@
 <?php 
 
+    use Carbon\Carbon;
+
     class SubscriptionController extends Controller {
 
         public function __construct() {
@@ -9,7 +11,7 @@
         }
 
         public function index() {
-            $subscriptions = $this->subscriptionModel->all();
+            $subscriptions = $this->subscriptionModel->byPeriod();
             $cards = $this->userModel->cards($_SESSION['user_id']);
             $data = compact('subscriptions', 'cards');
 

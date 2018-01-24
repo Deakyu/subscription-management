@@ -80,12 +80,13 @@
         // Post request for login form
         public function signin() {
             $response = $this->validate($_POST);
+            $timezone = $_POST['timezone'];
             if($response->validated) {
                 if($this->userModel->userExists($response->data['email'])) {
                     // User found
                     if($loggedUser = $this->userModel->login($response->data['email'], $response->data['password'])) {
                         // Create session
-                        $this->createUserSession($loggedUser);
+                        $this->createUserSession($loggedUser, $timezone);
                     } else {
                         $response->data['password_err'] = 'Incorrect credentials, please try again';
                         $this->view('users/login', $response->data);
@@ -100,10 +101,11 @@
             }
         }
 
-        public function createUserSession($user) {
+        public function createUserSession($user, $timezone) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['user_email'] = $user->email;
             $_SESSION['user_name'] = $user->name;
+            $_SESSION['timezone'] = $timezone;
             flash('login_success', "Welcome, {$_SESSION['user_name']}!");
             redirect('subscriptions');
         }

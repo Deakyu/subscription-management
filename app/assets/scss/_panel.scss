@@ -1,0 +1,29 @@
+.panel {
+    background: white;
+    box-shadow: 0 2px 1px 1px #ddd;
+    width: 100%;
+    margin-bottom: 48px;
+    border-radius: 9px;
+    color: white;
+    &__heading {
+        background: $fresh;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+        padding: 9px 18px;
+        font-family: $headerFont;
+        font-weight: bold;
+        .view-all {
+            float: right;
+            font-size: 0.9em;
+            font-weight: lighter;
+            font-family: $bodyFont;
+        }
+    }
+    &__body {
+        position: relative; // for add button
+        border-bottom-left-radius: 9px;
+        border-bottom-right-radius: 9px;
+        padding: 9px;
+        color: black;
+    }
+}

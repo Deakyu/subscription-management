@@ -1,7 +1,7 @@
 <?php
 
 function dd($data) {
-    die(var_dump($data));
+    die(highlight_string("<?php\n\$data =\n" . var_export($data, true) . ";\n?>"));
 }
 
 function refValues($arr){

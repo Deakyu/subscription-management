@@ -1,3 +1,6 @@
+// Get Client's Time Zone
+const tz = jstz.determine().name();
+
 // Init UI
 const ui = new UI
 

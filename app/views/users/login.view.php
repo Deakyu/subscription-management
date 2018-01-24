@@ -8,6 +8,7 @@
                 <?= flash('register_success'); ?>
                 <form class="form" action="<?= URLROOT.'/user/login'; ?>" method="post">
                     <h1 class="form__title">Login</h1>
+                    <input type="hidden" name="timezone" id="timezone">
                     <div class="form__group">
                         <input class="form__input" type="email" name="email" id="email" value="<?= $data['email']; ?>">
                         <span class="highlight"></span>
@@ -39,4 +40,10 @@
     </div>
 <?php require APPROOT . '/views/inc/js.php'; ?>
 <!-- Put Custom js -->
+<script>
+    // Set timezone input for session use when logged in
+    window.onload = () => {
+        document.getElementById('timezone').value = tz
+    }
+</script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -462,10 +462,11 @@ a:visited {
   border: none;
   padding: 4px 8px;
   cursor: pointer; }
-  .btn-status--paid {
+  .btn-status--success {
     background: #4bb543;
-    color: white; }
-  .btn-status--not-paid {
+    color: white;
+    cursor: not-allowed; }
+  .btn-status--danger {
     border: 1px solid #FC4A1A;
     color: #FC4A1A; }
 
