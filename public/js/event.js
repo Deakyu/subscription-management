@@ -163,4 +163,47 @@ class Event {
                 console.error(err)
             })
     }
+
+    static addSubscription(http, modal) {
+        let subscription_name = document.getElementById('subscription_name')
+        let period = document.getElementById('period')
+        let amount = document.getElementById('amount')
+        let due = document.getElementById('due')
+        let card = document.getElementById('card')
+        let user_id = document.getElementById('user_id')
+
+        let time = new Date()
+        let hours = time.getHours()
+        let minutes = time.getMinutes()
+        let seconds = time.getSeconds()
+        time = [hours, minutes, seconds]
+
+        let data = {
+            subscription_name: subscription_name.value,
+            period: period.value,
+            amount: amount.value,
+            due: due.value,
+            card_id: card.value,
+            user_id: user_id.value,
+            time: time,
+            timezone: tz
+        }
+        data.due = data.due.split('/').join('-');
+
+        http.post('/subscription/save', data)
+            .then(res => {
+                console.log(res)
+                if(!res.errorExists) {
+                    window.location.reload()
+                } else {
+                    // Handle Error if exists
+                    document.getElementById('subscription_name_err').innerHTML = res.error.subscription_name
+                    document.getElementById('amount_err').innerHTML = res.error.amount
+                    document.getElementById('period_err').innerHTML = res.error.period
+                    document.getElementById('due_err').innerHTML = res.error.due
+                    document.getElementById('card_err').innerHTML = res.error.card
+                }
+            })
+            .catch(err => console.log(err))
+    }
 }

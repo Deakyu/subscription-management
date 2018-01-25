@@ -11,11 +11,43 @@
         }
 
         public function index() {
+            $this->AuthMiddleware();
             $subscriptions = $this->subscriptionModel->byPeriod();
             $cards = $this->userModel->cards($_SESSION['user_id']);
             $data = compact('subscriptions', 'cards');
 
             $this->view('subscriptions/index', $data);
+        }
+
+        public function save() {
+            $error = [];
+            if($data = requestData()) {
+                // Validate empty inputs
+                foreach($data as $key=>$value) {
+                    $error[$key] = empty($value) ? "$key is required" : '';
+                }
+                $errorExists = false;
+                foreach($error as $err=>$value) {
+                    if(!empty($value)) $errorExists = true;
+                }
+
+                if($errorExists) {
+                    $message = '';
+                    $data = compact('error', 'data', 'errorExists', 'message');
+                    returnJson($data);
+                } else {
+                    $message = "{$data['subscription_name']} is added to your subscription list!";
+                    
+                    $data['due'] = convertDateFromClient($data['due'], $data['time'], $data['timezone']);
+                    $data = compact('error', 'data', 'errorExists', 'message');
+                    
+                    if($this->subscriptionModel->save($data['data'])) {
+                        returnJson($data);
+                    } else {
+                        returnJson($data,503);
+                    }
+                }
+            }
         }
 
         public function show($id) {

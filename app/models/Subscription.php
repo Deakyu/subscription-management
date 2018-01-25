@@ -8,6 +8,22 @@
             parent::__construct();
         }
 
+        public function save($data) {
+            $this->db->query("INSERT INTO subscriptions (user_id, name, period, amount, due, card_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $this->db->bind("issdsi", [
+                $data['user_id'],
+                $data['subscription_name'],
+                $data['period'],
+                $data['amount'],
+                $data['due'],
+                $data['card_id'],
+            ]);
+            if($this->db->execute()) {
+                return true;
+            }
+            return false;
+        }
+
         public function byPeriod() {
             $subscriptions = $this->all();
             $weekly = [];

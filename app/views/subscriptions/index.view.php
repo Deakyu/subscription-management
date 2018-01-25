@@ -141,5 +141,45 @@
         close.addEventListener('click', () => Event.hideModal())
     });
 
+    // Date Validation
+    validateDate()
+
+    // Save subscription to db through api when save button clicked
+    saveSubscriptionBtn.addEventListener('click', e => {
+        Event.addSubscription(http, addSubscriptionModalWrapper)
+
+        e.preventDefault()
+    })
+
+    // When save button clicked, convert date format so that
+    // it can be interpreted by PHP
+
+
+    // Enable escape key to close modals
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            close.forEach(close => {
+                close.click()
+            });
+        }
+    };
+
+    function validateDate() {
+        const re = /^[0-1]{1}[0-9]{1}\/[0-3]{1}[0-9]{1}\/[0-9]{2}$/
+        const due = document.getElementById('due')
+        const dueError = document.getElementById('due_err')
+        const saveSubscriptionBtn = document.getElementById('save-subscription')
+        due.addEventListener('keyup', e => {
+            if(!re.test(due.value)) {
+                saveSubscriptionBtn.disabled = true
+                dueError.innerHTML = "Please enter valid date"
+            } else {
+                saveSubscriptionBtn.disabled = false
+                dueError.innerHTML = ""
+            }
+        })
+    }
+
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

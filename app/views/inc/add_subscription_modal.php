@@ -38,7 +38,7 @@
                     <input class="form__input" type="text" name="due" id="due">
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label class="form__label" for="due">Due Date (mm-dd-yy)</label>
+                    <label class="form__label" for="due">Due Date (mm/dd/yy)</label>
                     <small class="form__error" id="due_err"></small>
                 </div>
                 <div class="form__group">

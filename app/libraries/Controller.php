@@ -11,6 +11,12 @@
             $this->request_method = strtolower($_SERVER['REQUEST_METHOD']);
         }
 
+        public function AuthMiddleware() {
+            if(!isset($_SESSION['user_id'])) {
+                redirect('user/login');
+            }
+        }
+
         /**
          * Instantiates a model in a constructor of a controller
          * 
