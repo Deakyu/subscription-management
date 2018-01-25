@@ -1,5 +1,7 @@
 <?php 
 
+    use Carbon\Carbon;
+
     class Subscription extends Model{
 
         protected $hidden = [];
@@ -26,6 +28,10 @@
 
         public function byPeriod() {
             $subscriptions = $this->all();
+            foreach($subscriptions as &$subscription) {
+                $subscription->due = Carbon::parse($subscription->due);
+            }
+            unset($subscription);
             $weekly = [];
             $monthly = [];
             $yearly = [];

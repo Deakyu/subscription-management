@@ -15,6 +15,11 @@
                     <small class="form__error" id="subscription_name_err"></small>
                 </div>
                 <div class="form__group">
+                    <label class="form__label form__label--file" for="logo">Logo </label>
+                    <input class="form__input form__input--file" type="file" name="logo" id="logo">
+                    <small class="form__error" id="logo_err"></small>
+                </div>
+                <div class="form__group">
                     <select class="form__input" type="text" name="period" id="period">
                         <option value="0">--Choose period type--</option>
                         <option value="w">Weekly</option>
@@ -28,7 +33,7 @@
                     <small class="form__error" id="period_err"></small>
                 </div>
                 <div class="form__group">
-                    <input class="form__input" type="number" name="amount" id="amount">
+                    <input class="form__input" type="text" name="amount" id="amount">
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label class="form__label" for="amount">Amount </label>
