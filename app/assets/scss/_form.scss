@@ -14,40 +14,19 @@
     }
     &__title {
         text-align: center;
-        margin-bottom: 48px;
+        margin-bottom: 96px;
     }
     &__group {
         position: relative;
-        margin-bottom: 36px;
-        @media (max-width: 768px) {
-            margin-bottom: 24px;
-        }
-        .bar {
-            position: relative;
-            display: block;
-            width: 100%;
-            &:before, &:after {
-                content: '';
-                height: 2px;
-                width: 0;
-                bottom: 1px;
-                position: absolute;
-                background: #5264ae;
-                transition: .2s ease-in-out all;
-                -moz-transition: .2s ease-in-out all;
-                -webkit-transition: .2s ease-in-out all;
+        margin-bottom: 48px;
+        .preview-container {
+            margin: 12px auto 0;
+            width: 50px;
+            height: 50px;
+            img#logo-img {
+                height: 100%;
+                width: 100%;
             }
-            &:before {left: 50%;}
-            &:after {right: 50%;}
-        } // .bar End
-        .highlight {
-            position: absolute;
-            height: 60%;
-            width: 60%;
-            top: 25%;
-            left: 0;
-            pointer-events: none;
-            opacity: 0.5;
         }
     }
     select.form__input {
@@ -57,47 +36,27 @@
         padding: 8px 8px 8px 4px;
         display: block;
         width: 100%;
+        outline: none;
         border: none;
-        border-radius: 2px;
-        border-bottom: 1px solid #ddd;
+        border-radius: 6px;
         background: #f9f9f9;
+        font-family: $bodyFont;
+        font-size: 16px;
         text-align: center;
-        &:focus {outline:none;}
-        &:focus ~ label.form__label, &.not-empty ~ label.form__label {
-            top: -25px;
-            font-size: 14px;
-            color: #5264ae;
-        }
-        &:focus ~ .bar:before, &:focus ~ .bar:after {width: 50%;}
-        &:focus ~ span.highlight {
-            animation: inputHighlighter .3s ease-in-out;
-            -moz-animation: inputHighlighter .3s ease-in-out;
-            -webkit-animation: inputHighlighter .3s ease-in-out;
-            @keyframes inputHighlighter {
-                from{background: #5246ae;}
-                to{background: transparent;width: 0;}
-            }
-            @-moz-keyframes inputHighlighter {
-                from{background: #5246ae;}
-                to{background: transparent;width: 0;}
-            }
-            @-webkit-keyframes inputHighlighter {
-                from{background: #5246ae;}
-                to{background: transparent;width: 0;}
-            }
+        transition: 0.2s ease-in-out;
+        &:focus {
+            box-shadow: 0 0 1px 2px $fresh;
         }
     }
     &__label {
+        font-size: 18px;
+        position: absolute;
         color: #999;
         white-space: nowrap;
-        position: absolute;
         pointer-events: none;
         left: 50%;
-        transform: translateX(-50%);
-        top: 2px;
-        transition: .2s ease-in-out all;
-        -moz-transition: .2s ease-in-out all;
-        -webkit-transition: .2s ease-in-out all;
+        top: -30px;
+        transform:translateX(-50%);
     }
     &__error {
         color: red;

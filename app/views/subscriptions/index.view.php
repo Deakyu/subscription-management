@@ -116,5 +116,21 @@
         })
     }
 
+    function previewFile() {
+        const preview = document.getElementById('logo-img')
+        const file = document.getElementById('logo').files[0]
+        const reader = new FileReader()
+
+        reader.onloadend = () => {
+            preview.src = reader.result
+        }
+
+        if(file) {
+            reader.readAsDataURL(file)
+        } else {
+            preview.src="/images/placeholder_small.png"
+        }
+    }
+
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
