@@ -10,13 +10,12 @@
                 <form class="form form--modal">
                     <input type="hidden" name="user_id" id="user_id" value="<?= $_SESSION['user_id']; ?>">
                     <div class="form__group">
-                        <input class="form__input" type="text" name="card_name" id="card_name">
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
                         <label class="form__label" for="card_name">Card Name </label>
+                        <input class="form__input" type="text" name="card_name" id="card_name">
                         <small class="form__error" id="card_name_err"></small>
                     </div>
                     <div class="form__group">
+                        <label class="form__label" for="company">Type </label>
                         <select class="form__input" type="text" name="company" id="company">
                             <option value="0">--Choose your card type--</option>
                             <option value="visa">Visa</option>
@@ -24,24 +23,17 @@
                             <option value="express">American Express</option>
                             <option value="other">Other</option>
                         </select>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label class="form__label" for="company">Type </label>
                         <small class="form__error" id="company_err"></small>
                     </div>
                     <div class="form__group">
-                        <input class="form__input" type="text" name="last_digit" id="last_digit">
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
                         <label class="form__label" for="last_digit">Last 4 Digit </label>
+                        <input class="form__input" type="text" name="last_digit" id="last_digit">
                         <small class="form__error" id="last_digit_err"></small>
                     </div>
                     <div class="form__group">
+                        <label class="form__label" for="expire">Expiration Date (mm-yy)</label>
                         <input class="form__input" type="text" name="expire" id="expire">
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label class="form__label" for="expire">Expiration Date (mm-yy)</label>
-                            <small class="form__error" id="expire_err"></small>
+                        <small class="form__error" id="expire_err"></small>
                     </div>
                     <input name="add_card" id="save-card" class="btn" type="submit" value="Add">
                 </form>
@@ -59,13 +51,12 @@
                 <form class="form form--modal">
                     <input type="hidden" name="user_id" id="edit_user_id" value="<?= $_SESSION['user_id']; ?>">
                     <div class="form__group">
-                        <input class="form__input" type="text" name="card_name" id="edit_card_name">
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
                         <label class="form__label" for="card_name">Card Name </label>
+                        <input class="form__input" type="text" name="card_name" id="edit_card_name">
                         <small class="form__error" id="edit_card_name_err"></small>
                     </div>
                     <div class="form__group">
+                        <label class="form__label" for="company">Type </label>
                         <select class="form__input" type="text" name="company" id="edit_company">
                             <option value="0">--Choose your card type--</option>
                             <option value="visa">Visa</option>
@@ -73,24 +64,17 @@
                             <option value="express">American Express</option>
                             <option value="other">Other</option>
                         </select>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label class="form__label" for="company">Type </label>
                         <small class="form__error" id="edit_company_err"></small>
                     </div>
                     <div class="form__group">
-                        <input class="form__input" type="text" name="last_digit" id="edit_last_digit">
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
                         <label class="form__label" for="last_digit">Last 4 Digit </label>
+                        <input class="form__input" type="text" name="last_digit" id="edit_last_digit">
                         <small class="form__error" id="edit_last_digit_err"></small>
                     </div>
                     <div class="form__group">
+                        <label class="form__label" for="expire">Expiration Date (mm-yy)</label>
                         <input class="form__input" type="text" name="expire" id="edit_expire">
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label class="form__label" for="expire">Expiration Date (mm-yy)</label>
-                            <small class="form__error" id="edit_expire_err"></small>
+                        <small class="form__error" id="edit_expire_err"></small>
                     </div>
                     <input id="update-card" class="btn" type="submit" value="Update">
                     <input id="delete-card" class="btn btn--danger" type="submit" value="Delete">
