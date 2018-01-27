@@ -21,7 +21,14 @@
 
         public function save() {
             $error = [];
-            if($data = requestData()) {
+            if(isset($_POST)) {
+                $data = $_POST;
+                if(isset($_FILES['logo'])) {
+                    $fileOrError = saveFile($_FILES['logo'], '/images/');
+                    $data['logo'] = $fileOrError;
+                } else {
+                    $data['logo'] = '/images/placeholder_small.png';
+                }
                 // Validate empty inputs
                 foreach($data as $key=>$value) {
                     $error[$key] = empty($value) ? "$key is required" : '';
@@ -37,7 +44,6 @@
                     returnJson($data);
                 } else {
                     $message = "{$data['subscription_name']} is added to your subscription list!";
-                    
                     $data['due'] = convertDateFromClient($data['due'], $data['time'], $data['timezone']);
                     $data = compact('error', 'data', 'errorExists', 'message');
                     

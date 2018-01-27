@@ -11,14 +11,15 @@
         }
 
         public function save($data) {
-            $this->db->query("INSERT INTO subscriptions (user_id, name, period, amount, due, card_id) VALUES (?, ?, ?, ?, ?, ?)");
-            $this->db->bind("issdsi", [
+            $this->db->query("INSERT INTO subscriptions (user_id, name, period, amount, due, card_id, logo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $this->db->bind("issdsis", [
                 $data['user_id'],
                 $data['subscription_name'],
                 $data['period'],
                 $data['amount'],
                 $data['due'],
                 $data['card_id'],
+                $data['logo']
             ]);
             if($this->db->execute()) {
                 return true;

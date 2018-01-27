@@ -171,6 +171,7 @@ class Event {
         let due = document.getElementById('due')
         let card = document.getElementById('card')
         let user_id = document.getElementById('user_id')
+        let logo = document.getElementById('logo').files[0]
 
         let time = new Date()
         let hours = time.getHours()
@@ -178,21 +179,19 @@ class Event {
         let seconds = time.getSeconds()
         time = [hours, minutes, seconds]
 
-        let data = {
-            subscription_name: subscription_name.value,
-            period: period.value,
-            amount: amount.value,
-            due: due.value,
-            card_id: card.value,
-            user_id: user_id.value,
-            time: time,
-            timezone: tz
-        }
-        data.due = data.due.split('/').join('-');
+        let data = new FormData()
+        data.append('subscription_name', subscription_name.value)
+        data.append('period', period.value)
+        data.append('amount', amount.value)
+        data.append('due', due.value.split('/').join('-'))
+        data.append('card_id', card.value)
+        data.append('user_id', user_id.value)
+        data.append('time', time)
+        data.append('timezone', tz)
+        data.append('logo', logo)
 
-        http.post('/subscription/save', data)
+        http.postWithFile('/subscription/save', data)
             .then(res => {
-                console.log(res)
                 if(!res.errorExists) {
                     window.location.reload()
                 } else {
@@ -205,5 +204,6 @@ class Event {
                 }
             })
             .catch(err => console.log(err))
+
     }
 }

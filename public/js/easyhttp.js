@@ -22,6 +22,18 @@ class easyHTTP {
         const resData = await response.json()
         return resData
     }
+
+    // Make HTTP POST request with files
+    async postWithFile(url, data) {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: data
+        })
+
+        const resData = await response.json()
+        return resData
+    }
+
     // Make an HTTP PUT request
     async put(url, data) {
         const response = await fetch(url, {

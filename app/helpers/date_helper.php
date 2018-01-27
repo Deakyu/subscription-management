@@ -7,6 +7,7 @@ function convertDateFromClient($data_due, $time, $timezone) {
     $month = $dates[0];
     $day = $dates[1];
     $year = $dates[2];
+    $time = explode(',', $time);
     if($dates[2][0] == 0 || $dates[2][0] == 1) {
         $year = "20".$year;
     } else {

@@ -22,9 +22,9 @@
         if($file['error'] == 0) {
             $splitNameArray = explode('.', $name);
             $extension = array_pop($splitNameArray);
-            $name = time().str_random(10).$extension;
+            $name = time().uniqid().'.'.$extension;
 
-            if(move_uploaded_file($file['tmp_name'], $path.$name)) {
+            if(move_uploaded_file($file['tmp_name'], dirname(APPROOT).'/public'.$path.$name)) {
                 $msg = $path.$name;
             } else {
                 $msg = 'Error Uploading File';

@@ -20,7 +20,7 @@
                                     <?php $year = substr($item->due->year, -2); ?>
                                     <li class="list__item">
                                         <div class="list__logo">
-                                            <img src="https://media.simplecast.com/podcast/image/1486/1472822603-artwork.jpg">
+                                            <img src="<?= $item->logo; ?>">
                                         </div>
                                         <div class="list__title">
                                             <h3><?= $item->name; ?></h3>
