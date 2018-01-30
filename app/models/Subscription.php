@@ -58,4 +58,31 @@
             return $subscriptions;
         }
 
+        public function update($data) {
+            $this->db->query("UPDATE subscriptions SET name=?, logo=?, amount=?, period=?, due=?, card_id=?, user_id=? WHERE id=?");
+            $this->db->bind("ssdssiii", [
+                $data['name'],
+                $data['logo'],
+                $data['amount'],
+                $data['period'],
+                $data['due'],
+                $data['card_id'],
+                $data['user_id'],
+                $data['id']
+            ]);
+            if($this->db->execute()) {
+                return true;
+            }
+            return false;
+        }
+
+        public function delete($id) {
+            $this->db->query("DELETE FROM subscriptions WHERE id=?");
+            $this->db->bind("i", [$id]);
+            if($this->db->execute()) {
+                return true;
+            }
+            return false;
+        }
+
     }

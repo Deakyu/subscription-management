@@ -141,7 +141,7 @@
         btn.addEventListener('click', () => {
             let card_id = btn.getAttribute('rel').split('-')[1]
 
-            Event.showEditModal(editCardModalWrapper, card_id)
+            Event.showEditCardModal(editCardModalWrapper, card_id)
         })
     });
 

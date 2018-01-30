@@ -17,7 +17,10 @@
 
     // Subscriptions Routes
     $router->get('/subscriptions', 'SubscriptionController@index');
+    $router->get('/subscription/:id', 'SubscriptionController@show');
     $router->post('/subscription/save', 'SubscriptionController@save');
+    $router->post('/subscription/update', 'SubscriptionController@update');
+    $router->post('/subscription/delete', 'SubscriptionController@delete');
 
     // Cards Routes
     $router->get('/cards', 'CardController@index');

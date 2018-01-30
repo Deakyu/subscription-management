@@ -1,48 +1,5 @@
 class Event {
 
-    static keepLabelUp(e) {
-        if(!e.target.value) {
-            e.target.classList.remove("not-empty")
-        } else {
-            e.target.classList.add("not-empty")
-            var lastChildIndex = e.target.parentNode.children.length-1
-            if(e.target.parentNode.children[lastChildIndex].className == 'error') {
-                e.target.parentNode.children[lastChildIndex].style.display="none"
-            }
-        }
-    }
-
-    static modalKeepLabelUp(formInputs) {
-        formInputs.forEach((input, index) => {
-            if(!formInputs[index].value) {
-                formInputs[index].classList.remove("not-empty")
-            } else {
-                formInputs[index].classList.add("not-empty")
-            }
-        });
-    }
-
-    static payButtonPressEffect(btn) {
-        btn.addEventListener('mousedown', e => {
-            btn.classList.add('pay--down')
-            e.preventDefault()
-        })
-        btn.addEventListener('mouseup', e => {
-            btn.classList.remove('pay--down')
-            e.preventDefault()
-        })
-        // Fires after mouseup
-        btn.addEventListener('click', e => {
-            btn.classList.toggle('pay--unpaid')
-            if(btn.textContent === 'Pay') {
-                btn.textContent = 'Paid'
-            } else {
-                btn.textContent = 'Pay'
-            }
-            e.preventDefault()
-        })
-    }
-
     static showFlash(ui) {
         var flash = ui.flash
         flash.forEach(el => {
@@ -60,7 +17,7 @@ class Event {
         modal.style.display="block"
     }
 
-    static showEditModal(modal, card_id) {
+    static showEditCardModal(modal, card_id) {
         modal.style.display="block"
 
         let card_name = document.getElementById('edit_card_name')
@@ -77,9 +34,6 @@ class Event {
                 company.value = res[0].company
                 last_digit.value = res[0].last_digits
                 expire.value = res[0].expire
-
-                let inputs = [card_name, company, last_digit, expire]
-                this.modalKeepLabelUp(inputs)
 
                 deleteBtn.addEventListener('click', e => {
                     let data = {id: card_id}
@@ -205,5 +159,83 @@ class Event {
             })
             .catch(err => console.log(err))
 
+    }
+
+    static showEditSubscriptionModal(modal, subscription_id) {
+        modal.style.display="block"
+
+        let subscription_name = document.getElementById('edit_subscription_name')
+        let logo_preview = document.getElementById('edit_logo-img')
+        let logo = document.getElementById('edit_logo')
+        let period = document.getElementById('edit_period')
+        let amount = document.getElementById('edit_amount')
+        let due = document.getElementById('edit_due')
+        let card = document.getElementById('edit_card')
+        let user_id = document.getElementById('edit_user_id')
+
+        let updateBtn = document.getElementById('update-subscription')
+        let deleteBtn = document.getElementById('delete-subscription')
+
+        http.get(`/subscription/${subscription_id}`)
+            .then(res => {
+                subscription_name.value = res[0].name
+                period.value = res[0].period
+                amount.value = res[0].amount
+                due.value = res[0].due.split('-').join('/')
+                card.value = res[0].card_id
+                logo_preview.setAttribute('src', res[0].logo)
+
+                deleteBtn.addEventListener('click', e => {
+                    let data = {id: subscription_id}
+
+                    http.post('/subscription/delete', data)
+                        .then(res => {
+                            window.location.reload()
+                        })
+                        .catch(err => console.log(err))
+
+                    e.preventDefault()
+                })
+
+                updateBtn.addEventListener('click', e => {
+                    let time = new Date()
+                    let hours = time.getHours()
+                    let minutes = time.getMinutes()
+                    let seconds = time.getSeconds()
+                    time = [hours, minutes, seconds]
+
+                    let data = new FormData()
+                    data.append('id', subscription_id)
+                    data.append('name', subscription_name.value)
+                    data.append('period', period.value)
+                    data.append('amount', amount.value)
+                    data.append('due', due.value.split('/').join('-'))
+                    data.append('card_id', card.value)
+                    data.append('user_id', user_id.value)
+                    data.append('time', time)
+                    data.append('timezone', tz)
+                    data.append('logo', logo.files[0])
+
+                    http.postWithFile(`/subscription/update`, data)
+                        .then(res => {
+                            if(!res.errorExists) {
+                                // Subscription is added successfully
+                                    window.location.reload()
+                            } else {
+                                // Handle Error if exists
+                                document.getElementById('edit_subscription_name_err').innerHTML = res.error.subscription_name
+                                document.getElementById('edit_period_err').innerHTML = res.error.period
+                                document.getElementById('edit_amount_err').innerHTML = res.error.amount
+                                document.getElementById('edit_due_err').innerHTML = res.error.due
+                                document.getElementById('edit_card_err').innerHTML = res.error.card
+                                document.getElementById('edit_logo_err').innerHTML = res.error.logo
+                            }
+                        })
+                        .catch(err => console.log(err))
+
+                    e.preventDefault()
+                })
+            })
+            .catch(err => console.log(err))
     }
 }

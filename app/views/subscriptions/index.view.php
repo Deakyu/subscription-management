@@ -1,6 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <?php //dd($data); ?>
-<?php require APPROOT . '/views/inc/add_subscription_modal.php'; ?>
+<?php require APPROOT . '/views/subscriptions/add_subscription_modal.php'; ?>
+<?php require APPROOT . '/views/subscriptions/edit_subscription_modal.php'; ?>
 
 <div class="grid">
     <div class="col-3">
@@ -32,7 +33,7 @@
                                                     <i class="fa <?= $item->paid ? 'fa-check-circle' : 'fa-exclamation-circle'; ?>" aria-hidden="true"></i>
                                                 </button>
                                             </p>
-                                            <button class="list__top-btn" rel="js-payBtn">Pay</button>
+                                            <button class="list__top-btn" rel="edit-<?= $item->id; ?>">Edit</button>
                                         </div>
                                     </li>
                                 <?php endforeach; ?>
@@ -60,12 +61,21 @@
 
     // Grab Modal wrapper for toggling
     const addSubscriptionModalWrapper = document.getElementById('add-subscription-modal-wrapper')
+    const editSubscriptionModalWrapper = document.getElementById('edit-subscription-modal-wrapper')
 
     // Show modal when add button clicked
     const openAddSubscriptionBtns = document.querySelectorAll('.open-add-subscription-modal')
     openAddSubscriptionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             Event.showModal(addSubscriptionModalWrapper)
+        })
+    });
+    const openEditSubscriptionBtns = document.querySelectorAll('.list__top-btn[rel*=edit-]')
+    openEditSubscriptionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let subscription_id = btn.getAttribute('rel').split('-')[1]
+
+            Event.showEditSubscriptionModal(editSubscriptionModalWrapper , subscription_id);
         })
     });
 
@@ -99,38 +109,6 @@
             });
         }
     };
-
-    function validateDate() {
-        const re = /^[0-1]?[0-9]{1}\/[0-3]{1}[0-9]{1}\/[0-9]{2}$/
-        const due = document.getElementById('due')
-        const dueError = document.getElementById('due_err')
-        const saveSubscriptionBtn = document.getElementById('save-subscription')
-        due.addEventListener('keyup', e => {
-            if(!re.test(due.value)) {
-                saveSubscriptionBtn.disabled = true
-                dueError.innerHTML = "Please enter valid date"
-            } else {
-                saveSubscriptionBtn.disabled = false
-                dueError.innerHTML = ""
-            }
-        })
-    }
-
-    function previewFile() {
-        const preview = document.getElementById('logo-img')
-        const file = document.getElementById('logo').files[0]
-        const reader = new FileReader()
-
-        reader.onloadend = () => {
-            preview.src = reader.result
-        }
-
-        if(file) {
-            reader.readAsDataURL(file)
-        } else {
-            preview.src="/images/placeholder_small.png"
-        }
-    }
 
 </script>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
