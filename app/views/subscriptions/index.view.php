@@ -1,7 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-    <?php //dd($data); ?>
+
 <?php require APPROOT . '/views/subscriptions/add_subscription_modal.php'; ?>
 <?php require APPROOT . '/views/subscriptions/edit_subscription_modal.php'; ?>
+<?php require APPROOT . '/views/subscriptions/pay_subscription_modal.php'; ?>
 
 <div class="grid">
     <div class="col-3">
@@ -26,11 +27,12 @@
                                         <div class="list__title">
                                             <h3><?= $item->name; ?></h3>
                                             <p style="font-weight:bold;text-decoration:underline;">$ <?= $item->amount; ?></p>
-                                            <p>Next Due: <?= "{$item->due->month}/{$item->due->day}/{$year}"; ?></p>
+                                            <p>Due: <?= "{$item->due->month}/{$item->due->day}/{$year}"; ?></p>
+                                            <!-- TODO: xx days/hours left OR xx days/hours passed -->
                                             <p>Status: 
-                                                <button class="btn-status btn-status<?= $item->paid ? '--success' : '--danger'; ?>">
-                                                    <?= $item->paid ? "Paid" : "Not Paid"; ?> 
-                                                    <i class="fa <?= $item->paid ? 'fa-check-circle' : 'fa-exclamation-circle'; ?>" aria-hidden="true"></i>
+                                                <button class="btn-status btn-status--success" rel='pay-subscription-<?= $item->id ;?>'>
+                                                    Pay
+                                                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                                                 </button>
                                             </p>
                                             <button class="list__top-btn" rel="edit-<?= $item->id; ?>">Edit</button>
@@ -62,6 +64,7 @@
     // Grab Modal wrapper for toggling
     const addSubscriptionModalWrapper = document.getElementById('add-subscription-modal-wrapper')
     const editSubscriptionModalWrapper = document.getElementById('edit-subscription-modal-wrapper')
+    const paySubscriptionModalWrapper = document.getElementById('pay-subscription-modal-wrapper')
 
     // Show modal when add button clicked
     const openAddSubscriptionBtns = document.querySelectorAll('.open-add-subscription-modal')
@@ -75,7 +78,15 @@
         btn.addEventListener('click', () => {
             let subscription_id = btn.getAttribute('rel').split('-')[1]
 
-            Event.showEditSubscriptionModal(editSubscriptionModalWrapper , subscription_id);
+            Event.showEditSubscriptionModal(editSubscriptionModalWrapper , subscription_id)
+        })
+    });
+    const paySubscriptionBtns = document.querySelectorAll('button[rel*=pay-subscription-]')
+    paySubscriptionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let subscription_id = btn.getAttribute('rel').split('-')[2]
+
+            Event.showPaySubscriptionModal(paySubscriptionModalWrapper, subscription_id)
         })
     });
 

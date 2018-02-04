@@ -23,11 +23,22 @@
             $subscription = $this->subscriptionModel->where(['id'], ['='], [$id]);
             // Due Manipulation
             $due = Carbon::parse($subscription[0]->due);
-            $tmp = [];
-            $tmp[] = $due->month;
-            $tmp[] = $due->day;
-            $tmp[] = substr($due->year, 2, 2);
-            $subscription[0]->due = implode($tmp, '-');
+            $subscription[0]->due = implode([$due->month, $due->day, substr($due->year, 2, 2)], '-');
+            switch ($subscription[0]->period) {
+                case 'w':
+                    $next_due = $due->addWeek();
+                    break;
+                case 'm':
+                    $next_due = $due->addMonth();
+                    break;
+                case 'y':
+                    $next_due = $due->addYear();
+                    break;
+                default:
+                    $next_due = $due;
+                    break;
+            }
+            $subscription[0]->next_due = implode([$next_due->month, $next_due->day, substr($next_due->year, 2, 2)], '-');
             returnJson($subscription);
         }
 
@@ -38,8 +49,6 @@
                 if(isset($_FILES['logo'])) {
                     $fileOrError = saveFile($_FILES['logo'], '/images/');
                     $data['logo'] = $fileOrError;
-                } else {
-                    $data['logo'] = '/images/placeholder_small.png';
                 }
                 // Validate empty inputs
                 foreach($data as $key=>$value) {

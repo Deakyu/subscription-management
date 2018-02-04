@@ -53,4 +53,7 @@
         height: 80vh;
         overflow-y: auto;
     }
+    &#pay-subscription-modal .modal__body{
+        height: unset;
+    }
 }

@@ -38,10 +38,8 @@ body {
     padding: 4px 8px;
     cursor: pointer;
     &--success {
-        // border: 1px solid $successGreen;
         background: $successGreen;
         color: white;
-        cursor: not-allowed;
     }
     &--danger {
         border: 1px solid $vermillion;

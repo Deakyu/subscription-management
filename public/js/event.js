@@ -214,7 +214,7 @@ class Event {
                     data.append('user_id', user_id.value)
                     data.append('time', time)
                     data.append('timezone', tz)
-                    data.append('logo', logo.files[0])
+                    data.append('logo', logo.files[0] || res[0].logo)
 
                     http.postWithFile(`/subscription/update`, data)
                         .then(res => {
@@ -229,6 +229,63 @@ class Event {
                                 document.getElementById('edit_due_err').innerHTML = res.error.due
                                 document.getElementById('edit_card_err').innerHTML = res.error.card
                                 document.getElementById('edit_logo_err').innerHTML = res.error.logo
+                            }
+                        })
+                        .catch(err => console.log(err))
+
+                    e.preventDefault()
+                })
+            })
+            .catch(err => console.log(err))
+    }
+
+    static showPaySubscriptionModal(modal, subscription_id) {
+        modal.style.display="block"
+
+        let user_id = document.getElementById('pay_user_id')
+        let subscription_name = document.getElementById('pay_subscription_name')
+        let logo_preview = document.getElementById('pay_logo-img')
+        let amount = document.getElementById('pay_amount')
+        let next_due = document.getElementById('pay_due')
+        let card = document.getElementById('pay_card')
+
+        let payBtn = document.getElementById('pay-subscription')
+
+        http.get(`/subscription/${subscription_id}`)
+            .then(res => {
+                subscription_name.value = res[0].name
+                amount.value = res[0].amount
+                next_due.value = res[0].next_due.split('-').join('/')
+                card.value = res[0].card_id
+                logo_preview.setAttribute('src', res[0].logo)
+
+                payBtn.addEventListener('click', e => {
+                    let time = new Date()
+                    let hours = time.getHours()
+                    let minutes = time.getMinutes()
+                    let seconds = time.getSeconds()
+                    time = [hours, minutes, seconds]
+
+                    let data = new FormData()
+                    data.append('id', subscription_id)
+                    data.append('name', subscription_name.value)
+                    data.append('amount', amount.value)
+                    data.append('due', next_due.value.split('/').join('-'))
+                    data.append('card_id', card.value)
+                    data.append('user_id', user_id.value)
+                    data.append('time', time)
+                    data.append('timezone', tz)
+
+                    http.post(`/subscription/pay`, data)
+                        .then(res => {
+                            if(!res.errorExists) {
+                                // Subscription is added successfully
+                                    window.location.reload()
+                            } else {
+                                // Handle Error if exists
+                                document.getElementById('edit_amount_err').innerHTML = res.error.amount
+                                document.getElementById('edit_due_err').innerHTML = res.error.due
+                                document.getElementById('edit_card_err').innerHTML = res.error.card
                             }
                         })
                         .catch(err => console.log(err))
